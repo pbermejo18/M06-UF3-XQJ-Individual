@@ -4,12 +4,12 @@ public class Empleat {
     String codi;
     String cognom;
     String ofici;
-    Date dataAlta;
+    String dataAlta;
     float salari;
     float comissio;
     String codiJefe;
 
-    public Empleat(String codi, String cognom, String ofici, Date dataAlta, float salari, float comissio, String codiJefe) {
+    public Empleat(String codi, String cognom, String ofici, String dataAlta, float salari, float comissio, String codiJefe) {
         this.codi = codi;
         this.cognom = cognom;
         this.ofici = ofici;
@@ -40,10 +40,10 @@ public class Empleat {
         this.ofici = ofici;
     }
 
-    public Date getDataAlta() {
+    public String getDataAlta() {
         return dataAlta;
     }
-    public void setDataAlta(Date dataAlta) {
+    public void setDataAlta(String dataAlta) {
         this.dataAlta = dataAlta;
     }
 
@@ -66,5 +66,18 @@ public class Empleat {
     }
     public void setCodiJefe(String codiJefe) {
         this.codiJefe = codiJefe;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleat{" +
+                "codi='" + codi + '\'' +
+                ", cognom='" + cognom + '\'' +
+                ", ofici='" + ofici + '\'' +
+                ", dataAlta=" + dataAlta +
+                ", salari=" + salari +
+                ", comissio=" + comissio +
+                ", codiJefe='" + codiJefe + '\'' +
+                '}';
     }
 }

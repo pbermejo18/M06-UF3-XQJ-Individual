@@ -12,6 +12,8 @@ public class Main {
         String codigo = scanner.next();
         System.out.println(gestorBD.getDeptSenseEmp(codigo));
 
+        System.out.println(gestorBD.getDeptAmbEmp(codigo));
+
         gestorBD.tancarSessió();
 /*
         XQDataSource xqs = new ExistXQDataSource();

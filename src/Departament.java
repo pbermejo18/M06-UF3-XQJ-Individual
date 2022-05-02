@@ -6,10 +6,11 @@ public class Departament {
     String localitat;
     List<Empleat> empleatsList;
 
-    public Departament(String codi, String nom, String localitat) {
+    public Departament(String codi, String nom, String localitat, List<Empleat> empleatsList) {
         this.codi = codi;
         this.nom = nom;
         this.localitat = localitat;
+        this.empleatsList = empleatsList;
     }
 
     public String getCodi() {
