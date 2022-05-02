@@ -116,4 +116,37 @@ public class GestorBD {
         departament.setEmpleatsList(empleatsList);
         return departament;
     }
+
+    public void insertDept(String codi, String nom, String localitat) throws XQException {
+        XQExpression expr = conn.createExpression();
+        try {
+            /*
+            String insert = "update insert \n" +
+                    "<dept codi='1881'><nom>POL</nom><localitat>Barcelona</localitat></dept> \n" +
+                    "preceding doc('/db/empresa/empresa.xml')/empresa/departaments/dept[1]";
+                    */
+
+            String insert = "update insert \n" +
+                    "<dept codi='"+codi+"'><nom>"+nom+"</nom><localitat>"+localitat+"</localitat></dept> \n" +
+                    "preceding doc('/db/empresa/empresa.xml')/empresa/departaments/dept[1]";
+
+            expr.executeCommand(insert);
+            System.out.println("Departament insertat");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteDept(String codi) throws XQException {
+        XQExpression expr = conn.createExpression();
+        try {
+            String delete = "update delete \n" +
+                    "doc('/db/empresa/empresa.xml')/empresa/departaments/dept[@codi='"+codi+"']";
+
+            expr.executeCommand(delete);
+            System.out.println("Departament eliminat");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
