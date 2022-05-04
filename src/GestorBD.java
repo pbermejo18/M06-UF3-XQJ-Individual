@@ -26,12 +26,6 @@ public class GestorBD {
         String nom = null;
         String localitat = null;
 
-        XQPreparedExpression xqpe = conn.prepareExpression("declare variable $x as xs:string external; $x");
-        xqpe.bindString( new QName("x"), "DepartamentSenseEmpleats", null);
-        XQResultSequence rs = xqpe.executeQuery();
-        while(rs.next())
-            System.out.println( rs.getItemAsString(null));
-
         XQExpression expr = conn.createExpression();
         XQResultSequence resultNom = expr.executeQuery(
                 "for $c in collection(\"/db/empresa\") " +
@@ -61,12 +55,6 @@ public class GestorBD {
         Departament departament = getDeptSenseEmp(codi);
         List<Empleat> empleatsList = new ArrayList<>();
 
-        XQPreparedExpression xqpe = conn.prepareExpression("declare variable $x as xs:string external; $x");
-        xqpe.bindString( new QName("x"), "DepartamentAmbEmpleats", null);
-        XQResultSequence rs = xqpe.executeQuery();
-        while(rs.next())
-            System.out.println( rs.getItemAsString(null));
-
         XQExpression expr = conn.createExpression();
 
         XQResultSequence resultempleats = expr.executeQuery(
@@ -79,7 +67,7 @@ public class GestorBD {
                         "let $comissio:= $c/comissio/text()\n" +
                         "let $cjefe:= $c/@cap/string()\n" +
                         "return\n" +
-                        "<ff>{$codi},{$cognom},{$ofici},{$dataAlta},{$salari},{$comissio},{$cjefe}</ff>");
+                        "<ff>{$codi},{$cognom},{$ofici},{$dataAlta},{$salari},{$comissio},{$cjefe},null</ff>");
         while (resultempleats.next()) {
             XMLStreamReader xmlStreamReader3 = resultempleats.getItemAsStream();
             Empleat empleat = new Empleat(null,null,null,null,0.0f,0.0f,null);
@@ -145,6 +133,27 @@ public class GestorBD {
 
             expr.executeCommand(delete);
             System.out.println("Departament eliminat");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void replaceDept(String codi_a_cambiar, String new_codi) throws XQException {
+        XQExpression expr = conn.createExpression();
+        try {
+            String replace_emp = "update value \n" +
+                    "doc('/db/empresa/empresa.xml')/empresa/empleats/emp[@dept='"+codi_a_cambiar+"']/@dept \n" +
+                    "with '"+new_codi+"'";
+            expr.executeCommand(replace_emp);
+
+            deleteDept(new_codi);
+
+            String replace = "update value \n" +
+                    "doc('/db/empresa/empresa.xml')/empresa/departaments/dept[@codi='"+codi_a_cambiar+"']/@codi \n" +
+                    "with '"+new_codi+"'";
+
+            expr.executeCommand(replace);
+            System.out.println("Departament modificat");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

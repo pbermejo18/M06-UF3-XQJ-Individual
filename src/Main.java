@@ -8,16 +8,27 @@ public class Main {
         GestorBD gestorBD = new GestorBD();
 
         System.out.println("****** Introdueix la id del departament: ******");
-        String codigo = scanner.next();
-        System.out.println(gestorBD.getDeptSenseEmp(codigo));
+            String codigo = scanner.next();
 
-        System.out.println(gestorBD.getDeptAmbEmp(codigo));
+        System.out.println("****** Departament sense empleats ******");
+            System.out.println(gestorBD.getDeptSenseEmp(codigo));
 
-        gestorBD.insertDept("d1881","PolDept","Barcelona");
-        System.out.println(gestorBD.getDeptSenseEmp("d1881"));
+        System.out.println("****** Departament amb empleats ******");
+            System.out.println(gestorBD.getDeptAmbEmp(codigo));
 
-        gestorBD.deleteDept("d1881");
-        System.out.println(gestorBD.getDeptSenseEmp("d1881"));
+        System.out.println("****** Insert departament d1881 ******");
+            gestorBD.insertDept("d1881","PolDept","Barcelona");
+            System.out.println(gestorBD.getDeptAmbEmp("d1881"));
+
+        System.out.println("****** Remplazamos el departament d10 por el d20 ******");
+            System.out.println("Antes: " + gestorBD.getDeptAmbEmp("d20"));
+            gestorBD.replaceDept("d10","d20");
+            System.out.println("Después: " + gestorBD.getDeptAmbEmp("d20"));
+
+        System.out.println("****** Eliminem el departament d1881 ******");
+            gestorBD.deleteDept("d1881");
+            System.out.println(gestorBD.getDeptSenseEmp("d1881"));
+
         gestorBD.tancarSessió();
     }
 }
