@@ -7,7 +7,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         GestorBD gestorBD = new GestorBD();
 
-        System.out.println("****** Introdueix la id del departament: ******");
+        System.out.println("****** Introdueix la id del departament que vols veure: ******");
             String codigo = scanner.next();
 
         System.out.println("****** Departament sense empleats ******");
